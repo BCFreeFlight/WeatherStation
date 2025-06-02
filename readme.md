@@ -8,6 +8,7 @@ This project provides detailed documentation for setting up a remote weather sta
 
 ### Hardware
 - [Complete Parts List](docs/parts-list.md) - Comprehensive list of all required components with specifications
+- [Wiring Diagram](docs/wiring-diagram.md) - Visual guide for connecting all system components
 
 ### Software & Configuration
 - [Software Requirements](docs/software.md) - Essential applications and tools needed for all platforms
