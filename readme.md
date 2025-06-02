@@ -7,14 +7,14 @@ This project provides detailed documentation for setting up a remote weather sta
 ## Documentation
 
 ### Hardware
-- [Complete Parts List](parts-list.md) - Comprehensive list of all required components with specifications
+- [Complete Parts List](docs/parts-list.md) - Comprehensive list of all required components with specifications
 
 ### Software & Configuration
-- [Software Requirements](software.md) - Essential applications and tools needed for all platforms
-- [OBS Configuration](obs-config.md) - Setting up Open Broadcaster Software for live streaming
-- [Weather Station Configuration](weather-station-config.md) - ECOWITT weather station setup and data integration
-- [PowerBeam Configuration](powerbeam-config.md) - Configuring Ubiquiti PowerBeam antennas in bridge mode
-- [Reolink Camera Configuration](reolink-config.md) - Setting up and integrating Reolink cameras
+- [Software Requirements](docs/software.md) - Essential applications and tools needed for all platforms
+- [OBS Configuration](docs/obs-config.md) - Setting up Open Broadcaster Software for live streaming
+- [Weather Station Configuration](docs/weather-station-config.md) - ECOWITT weather station setup and data integration
+- [PowerBeam Configuration](docs/powerbeam-config.md) - Configuring Ubiquiti PowerBeam antennas in bridge mode
+- [Reolink Camera Configuration](docs/reolink-config.md) - Setting up and integrating Reolink cameras
 
 ## Adding Your Weather Station to BCFreeFlight.com
 
