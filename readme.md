@@ -4,6 +4,8 @@
 
 This project provides detailed documentation for setting up a remote weather station with camera monitoring capabilities. The system is designed to connect to a WiFi network and stream both real-time weather data and a live video feed of launch activities for paragliding or other flight activities.
 
+To view the results: Please visit [https://bcfreeflight.com/sites/coopers](https://bcfreeflight.com/sites/coopers)
+
 ## Documentation
 
 ### Hardware
