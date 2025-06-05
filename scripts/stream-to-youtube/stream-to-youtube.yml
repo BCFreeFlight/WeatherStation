@@ -1,6 +1,7 @@
-stream_url: "rtsp://admin:XXX@192.168.0.194/Preview_01_main"
+stream_url: "rtsp://admin:Cloudbase$$1@192.168.0.194/Preview_01_main"
 youtube_key: "xxxxx"
 restart_seconds: 60
 audio_enabled: false
 bitrate: "2500k"
 resolution: "1280x720"
+log_retention_days: 15
