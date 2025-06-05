@@ -50,11 +50,17 @@ while true; do
   log "──────────────────────────────────────────────"
   log "🚀 Launching FFmpeg stream"
 
-  ffmpeg -rtsp_transport tcp -i "$STREAM_URL" \
+  ffmpeg -rtsp_transport tcp \
+    -i "$STREAM_URL" \
     -s "$RESOLUTION" \
-    -c:v libx264 -preset ultrafast -b:v "$BITRATE" -maxrate "$BITRATE" -bufsize "$BITRATE" \
+    -c:v libx264 \
+    -preset ultrafast \
+    -b:v "$BITRATE" \
+    -maxrate "$BITRATE" \
+    -bufsize "$BITRATE" \
     $AUDIO_ARGS \
-    -f flv "$YOUTUBE_URL" -t "$DURATION" >> "$LOGFILE" 2>&1
+    -f flv "$YOUTUBE_URL" \
+    -t "$DURATION" >> "$LOGFILE" 2>&1
 
   EXIT_CODE=$?
 
