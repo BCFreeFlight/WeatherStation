@@ -48,7 +48,7 @@ find logs -type f -name 'stream-to-youtube-*.log' -mtime +"$LOG_RETENTION_DAYS" 
 # Main loop
 while true; do
   log "──────────────────────────────────────────────"
-  log "🚀 Launching FFmpeg stream"
+  log "🚀 Starting Video stream"
 
   ffmpeg -rtsp_transport tcp \
     -i "$STREAM_URL" \
