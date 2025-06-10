@@ -1,12 +1,6 @@
 // index.mjs
 import {DynamoDBClient} from "@aws-sdk/client-dynamodb";
-import { ResponseHandler } from 'bcfreeflight/response-handler.mjs';
-import { QueryParser } from 'bcfreeflight/query-parser.mjs';
-import { DynamoDBDeviceRepository } from 'bcfreeflight/device-repository.mjs';
-import { DynamoDBWeatherRepository } from 'bcfreeflight/weather-repository.mjs';
-import { WeatherService } from 'bcfreeflight/weather-service.mjs';
-import { DeviceService } from 'bcfreeflight/device-service.mjs';
-
+import { ResponseHandler, QueryParser, DynamoDBDeviceRepository, DynamoDBWeatherRepository, WeatherService, DeviceService } from "bcfreeflight";
 
 // Table names
 const deviceTable = "BCFF_Devices";
@@ -39,12 +33,12 @@ const handler = async (event) => {
     }
 
     try {
-        const deviceValid = await deviceService.validateDevice(uploadKey);
-        if (!deviceValid) {
+        const device = await deviceService.getById(uploadKey);
+        if (!device) {
             return responseHandler.handle(400, `Device with key '${uploadKey}' not found.`);
         }
         const payload = queryParser.parse(event.queryStringParameters);
-        await weatherService.saveWeatherData(uploadKey, payload);
+        await weatherService.saveWeatherData(device, payload);
         return responseHandler.handle(200, "Success");
     } catch (err) {
         return responseHandler.handle(500, `Internal server error: ${err.message}`);
