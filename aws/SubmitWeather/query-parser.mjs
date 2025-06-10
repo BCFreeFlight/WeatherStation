@@ -11,9 +11,11 @@ class QueryParser {
      *
      * @param {Object} params - The input object to parse. Should be a key-value pair of strings or other values.
      * @return {Object} A new object with numeric strings converted to numbers, and excluding "uploadKey".
+     * @throws {Error} Throws an error if params is null.
      */
     parse(params) {
-        if (!params || typeof params !== 'object') return {};
+        if (params === null) throw new Error("params cannot be null");
+        if (typeof params !== 'object') return {};
         const parsed = {};
         for (const [key, value] of Object.entries(params)) {
             if (key.toLowerCase() === 'uploadkey') continue;
@@ -30,10 +32,15 @@ class QueryParser {
      *
      * @param {Object} params - The object containing key-value pairs.
      * @param {string} key - The key whose associated value is to be retrieved.
-     * @return {*} The value associated with the matching key, or undefined if the key is not found or if the input is invalid.
+     * @return {string} The value associated with the matching key, or undefined if the key is not found.
+     * @throws {Error} Throws an error if params is null, key is null, or key is empty.
      */
     getParam(params, key) {
-        if (!params || typeof params !== 'object') return undefined;
+        if (params === null) throw new Error("params cannot be null");
+        if (key === null) throw new Error("key cannot be null");
+        if (key === "") throw new Error("key cannot be empty");
+        if (typeof params !== 'object') throw new Error("params must be an object");
+
         const foundKey = Object.keys(params).find(k => k.toLowerCase() === key.toLowerCase());
         return foundKey ? params[foundKey] : undefined;
     }

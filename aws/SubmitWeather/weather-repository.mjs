@@ -21,11 +21,13 @@ class DynamoDBWeatherRepository {
      * @return {Promise<Object>} A promise that resolves to the result of the database operation.
      */
     async saveWeatherData({ id, uploadKey, timestamp, data }) {
+        let item = marshall({ id, uploadKey, timestamp, data });
         const putCommand = new PutItemCommand({
             TableName: "BCFF_Weather",
-            Item: marshall({ id, uploadKey, timestamp, data })
+            Item: item
         });
-        return await this.client.send(putCommand);
+        await this.client.send(putCommand);
+        return item;
     }
 }
 
