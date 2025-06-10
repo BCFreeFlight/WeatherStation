@@ -17,6 +17,17 @@ const weatherService = new WeatherService(weatherRepository);
 const deviceService = new DeviceService(deviceRepository);
 
 // Lambda handler
+/**
+ * Handles an incoming event to validate a device and save weather data.
+ *
+ * @param {Object} event - The event object containing request details.
+ * @param {Object} event.queryStringParameters - The query string parameters from the event.
+ * @return {Promise<Object>} A response object formatted with status code and message.
+ *
+ * - Returns a 400 response if the 'uploadKey' is missing or invalid.
+ * - Returns a 200 response on successful data processing and storage.
+ * - Throws an error when an internal exception occurs.
+ */
 export const handler = async (event) => {
     const uploadKey = queryParser.getParam(event.queryStringParameters, "uploadKey");
     if (!uploadKey) {
