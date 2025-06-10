@@ -2,14 +2,8 @@
 import { nanoid } from "nanoid";
 
 class WeatherService {
-    constructor(deviceRepository, weatherRepository) {
-        this.deviceRepository = deviceRepository;
+    constructor(weatherRepository) {
         this.weatherRepository = weatherRepository;
-    }
-
-    async validateDevice(uploadKey) {
-        const deviceResult = await this.deviceRepository.findByUploadKey(uploadKey);
-        return deviceResult.Items.length > 0;
     }
 
     async saveWeatherData(uploadKey, data) {
