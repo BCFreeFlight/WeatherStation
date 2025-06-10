@@ -6,8 +6,16 @@ import { marshall } from "@aws-sdk/util-dynamodb";
  * Class representing a repository for weather data operations using DynamoDB.
  */
 class DynamoDBWeatherRepository {
-    constructor(dbClient) {
+    /**
+     * Creates an instance of the class with the specified database client and table name.
+     *
+     * @param {Object} dbClient - The database client to interact with the database.
+     * @param {string} tableName - The name of the database table to be used.
+     * @return {void}
+     */
+    constructor(dbClient, tableName) {
         this.client = dbClient;
+        this.tableName = tableName;
     }
 
     /**
@@ -23,7 +31,7 @@ class DynamoDBWeatherRepository {
     async saveWeatherData({ id, uploadKey, timestamp, data }) {
         let payload = { id, uploadKey, timestamp, data };
         const putCommand = new PutItemCommand({
-            TableName: "BCFF_Weather",
+            TableName: this.tableName,
             Item: marshall(payload)
         });
         await this.client.send(putCommand);

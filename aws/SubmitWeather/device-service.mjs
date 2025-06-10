@@ -3,6 +3,12 @@
  * Service class responsible for handling device-related operations.
  */
 class DeviceService {
+    /**
+     * Constructs an instance of the class with a specified device repository.
+     *
+     * @param {Object} deviceRepository - The repository instance used to manage device-related data and operations.
+     * @return {void}
+     */
     constructor(deviceRepository) {
         this.deviceRepository = deviceRepository;
     }

@@ -6,8 +6,15 @@ import { QueryCommand } from "@aws-sdk/client-dynamodb";
  * This class provides a method to query devices by their upload keys using the AWS SDK.
  */
 class DynamoDBDeviceRepository {
-    constructor(dbClient) {
+    /**
+     * Constructs an instance of the class with the specified database client and table name.
+     *
+     * @param {Object} dbClient - The database client used to interact with the database.
+     * @param {string} tableName - The name of the table to perform operations on.
+     */
+    constructor(dbClient, tableName) {
         this.client = dbClient;
+        this.tableName = tableName;
     }
 
     /**
@@ -22,7 +29,7 @@ class DynamoDBDeviceRepository {
         if (!uploadKey) throw new Error("uploadKey is required");
 
         const queryCommand = new QueryCommand({
-            TableName: "BCFF_Devices",
+            TableName: this.tableName,
             IndexName: "uploadKey-index", // ⚠️ must match exactly
             KeyConditionExpression: "uploadKey = :uploadKey",
             ExpressionAttributeValues: {

@@ -7,12 +7,16 @@ import {DynamoDBWeatherRepository} from './weather-repository.mjs';
 import {WeatherService} from './weather-service.mjs';
 import {DeviceService} from './device-service.mjs';
 
+// Table names
+const deviceTable = "BCFF_Devices";
+const weatherTable = "BCFF_Weather";
+
 // Create dependencies
 const dbClient = new DynamoDBClient({region: process.env.AWS_REGION});
 const responseHandler = new ResponseHandler();
 const queryParser = new QueryParser();
-const deviceRepository = new DynamoDBDeviceRepository(dbClient);
-const weatherRepository = new DynamoDBWeatherRepository(dbClient);
+const deviceRepository = new DynamoDBDeviceRepository(dbClient, deviceTable);
+const weatherRepository = new DynamoDBWeatherRepository(dbClient, weatherTable);
 const weatherService = new WeatherService(weatherRepository);
 const deviceService = new DeviceService(deviceRepository);
 

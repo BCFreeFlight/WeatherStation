@@ -5,6 +5,12 @@ import {nanoid} from "nanoid";
  * A service for managing and storing weather data.
  */
 class WeatherService {
+    /**
+     * Creates an instance of the class with the given weather repository.
+     *
+     * @param {Object} weatherRepository - The repository instance used to fetch weather data.
+     * @return {Object} An instance of the class initialized with the provided weather repository.
+     */
     constructor(weatherRepository) {
         this.weatherRepository = weatherRepository;
     }
