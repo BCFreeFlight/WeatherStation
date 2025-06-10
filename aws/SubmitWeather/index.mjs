@@ -1,11 +1,12 @@
 // index.mjs
 import {DynamoDBClient} from "@aws-sdk/client-dynamodb";
-import {ResponseHandler} from './response-handler.mjs';
-import {QueryParser} from './query-parser.mjs';
-import {DynamoDBDeviceRepository} from './device-repository.mjs';
-import {DynamoDBWeatherRepository} from './weather-repository.mjs';
-import {WeatherService} from './weather-service.mjs';
-import {DeviceService} from './device-service.mjs';
+import { ResponseHandler } from 'bcfreeflight/response-handler.mjs';
+import { QueryParser } from 'bcfreeflight/query-parser.mjs';
+import { DynamoDBDeviceRepository } from 'bcfreeflight/device-repository.mjs';
+import { DynamoDBWeatherRepository } from 'bcfreeflight/weather-repository.mjs';
+import { WeatherService } from 'bcfreeflight/weather-service.mjs';
+import { DeviceService } from 'bcfreeflight/device-service.mjs';
+
 
 // Table names
 const deviceTable = "BCFF_Devices";
