@@ -1,5 +1,5 @@
 // weather-service.mjs
-import { nanoid } from "nanoid";
+import {nanoid} from "nanoid";
 
 /**
  * A service for managing and storing weather data.
@@ -19,7 +19,7 @@ class WeatherService {
     async saveWeatherData(uploadKey, data) {
         const timestamp = new Date().toISOString();
         const id = nanoid();
-        await this.weatherRepository.saveWeatherData({ id, uploadKey, timestamp, data });
+        return await this.weatherRepository.saveWeatherData({id, uploadKey, timestamp, data});
     }
 }
 

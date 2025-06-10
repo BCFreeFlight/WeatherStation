@@ -39,8 +39,8 @@ const handler = async (event) => {
             return responseHandler.handle(400, `Device with key '${uploadKey}' not found.`);
         }
         const payload = queryParser.parse(event.queryStringParameters);
-        let result = await weatherService.saveWeatherData(uploadKey, payload);
-        return responseHandler.handle(200, result);
+        await weatherService.saveWeatherData(uploadKey, payload);
+        return responseHandler.handle(200, "Success");
     } catch (err) {
         return responseHandler.handle(500, `Internal server error: ${err.message}`);
     }
