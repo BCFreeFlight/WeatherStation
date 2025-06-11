@@ -1,6 +1,6 @@
 // index.mjs
 import {DynamoDBClient} from "@aws-sdk/client-dynamodb";
-import { ResponseHandler, QueryParser, DynamoDBDeviceRepository, DynamoDBWeatherRepository, WeatherService, DeviceService } from "bcfreeflight";
+import {ResponseHandler, QueryParser, DynamoDBDeviceRepository, DynamoDBWeatherRepository, WeatherService, DeviceService} from "bcfreeflight";
 
 // Table names
 const deviceTable = "BCFF_Devices";
@@ -26,6 +26,9 @@ const deviceService = new DeviceService(deviceRepository);
  *                           Throws an error with a 500 status code for internal server errors.
  */
 const handler = async (event) => {
+
+    console.log(event.isBase64Encoded);
+    console.log(event.body);
     const uploadKey = queryParser.getParam(event.queryStringParameters, "uploadKey");
 
     if (!uploadKey) {
@@ -37,10 +40,14 @@ const handler = async (event) => {
         if (!device) {
             return responseHandler.handle(400, `Device with key '${uploadKey}' not found.`);
         }
-        const payload = queryParser.parse(event.queryStringParameters);
+        const payload = event.isBase64Encoded
+            ? queryParser.parseBase64(event.body)
+            : queryParser.parse(event.queryStringParameters);
+
         await weatherService.saveWeatherData(device, payload);
         return responseHandler.handle(200, "Success");
     } catch (err) {
+        console.error(err);
         return responseHandler.handle(500, `Internal server error: ${err.message}`);
     }
 };
