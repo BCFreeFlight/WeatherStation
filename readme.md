@@ -14,10 +14,20 @@ To view the results: Please visit [https://bcfreeflight.com/sites/coopers](https
 
 ### Software & Configuration
 - [Software Requirements](docs/software.md) - Essential applications and tools needed for all platforms
-- [OBS Configuration](docs/obs-config.md) - Setting up Open Broadcaster Software for live streaming
+- [Stream Script](https://github.com/BCFreeFlight/Stream) - Self-contained Python script that proxies the RTSP camera feed to YouTube Live for live streaming (see Quick Install below)
 - [Weather Station Configuration](docs/weather-station-config.md) - ECOWITT weather station setup and data integration
 - [PowerBeam Configuration](docs/powerbeam-config.md) - Configuring Ubiquiti PowerBeam antennas in bridge mode
 - [Reolink Camera Configuration](docs/reolink-config.md) - Setting up and integrating Reolink cameras
+
+## Live Streaming Setup
+
+Live streaming to YouTube is handled by the [Stream](https://github.com/BCFreeFlight/Stream) script, not OBS. On the streaming machine, run:
+
+```bash
+curl -fLO https://github.com/BCFreeFlight/Stream/releases/latest/download/stream.py && python3 stream.py --install
+```
+
+This launches an interactive wizard that installs `ffmpeg`, walks through Google OAuth setup, creates a stable YouTube broadcast URL, and registers cron jobs to start/stop the stream daily and recover it after a reboot. See the [Stream README](https://github.com/BCFreeFlight/Stream) for full configuration and usage details.
 
 ## Adding Your Weather Station to BCFreeFlight.com
 
@@ -41,7 +51,7 @@ The system consists of:
 - Weather monitoring sensors with WiFi connectivity
 - IP camera for visual monitoring
 - Long-range wireless bridge for data transmission
-- OBS configuration for live streaming
+- [Stream](https://github.com/BCFreeFlight/Stream) script for live streaming to YouTube
 
 ## Support
 
