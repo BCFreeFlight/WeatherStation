@@ -6,7 +6,6 @@ There will likely be some miscellaneous components that you need to complete the
 
 [View Complete Amazon Shopping List](https://www.amazon.ca/hz/wishlist/ls/2OBZLOWASUJUO)
 
-Total price could fluctuate, but the estimated cost is around $2,400 CAD for the launch site build. The second ECOWITT GW1101 at the LZ is an additional unit on top of that.
 ## Components
 
 ### Mele Quieter4C Fanless Mini PC
