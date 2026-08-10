@@ -1,6 +1,6 @@
 # Reolink Camera Documentation
 
-This guide provides instructions for setting up your Reolink IP PoE camera and configuring it to stream video into OBS (Open Broadcaster Software) using both the RTSP and RTMP protocols.
+This guide provides instructions for setting up your Reolink IP PoE camera and obtaining the RTSP and RTMP stream URLs. The RTSP URL is what you supply to the [Stream](https://github.com/BCFreeFlight/Stream) script during installation — see [Live Streaming with the Stream Script](stream-config.md).
 
 ## 1. Camera Hardware & Initial Setup
 
@@ -14,11 +14,11 @@ This guide provides instructions for setting up your Reolink IP PoE camera and c
 2. Enter `http://<IP address>` (replace `<IP address>` with your camera’s assigned address).
 3. Log in using your camera credentials (set up initially via the Reolink app or web interface).
 
-## 3. Stream URLs for OBS
+## 3. Stream URLs
 
 ### A. RTSP Stream
 
-RTSP is a common protocol for streaming high-quality video with minimal latency. OBS can ingest RTSP directly.
+RTSP is a common protocol for streaming high-quality video with minimal latency. This is the URL the Stream script uses as its `stream.rtspUrl` config value.
 
 #### RTSP URL Format
 
@@ -50,7 +50,7 @@ rtsp://admin:MySecret123@192.168.1.101/Preview_0_main
 
 ### B. RTMP Stream
 
-RTMP is typically used for pushing streams to servers (YouTube, Twitch) but Reolink cameras also allow RTMP URLs which can be pulled into OBS.
+RTMP is typically used for pushing streams to servers (YouTube, Twitch), but Reolink cameras also expose RTMP URLs that can be pulled by a client. RTSP is preferred for this installation; RTMP is documented here as a fallback.
 
 #### RTMP URL Format
 

@@ -6,7 +6,7 @@ There will likely be some miscellaneous components that you need to complete the
 
 [View Complete Amazon Shopping List](https://www.amazon.ca/hz/wishlist/ls/2OBZLOWASUJUO)
 
-Total price could fluctuate, but the estimated cost is around $2,400 CAD
+Total price could fluctuate, but the estimated cost is around $2,400 CAD for the launch site build. The second ECOWITT GW1101 at the LZ is an additional unit on top of that.
 ## Components
 
 ### Mele Quieter4C Fanless Mini PC
@@ -181,7 +181,7 @@ Total price could fluctuate, but the estimated cost is around $2,400 CAD
 * Rugged metal housing for durability in harsh environments
 * Wall-mountable design with included bracket for flexible installation
 
-### ECOWITT GW1101 Wi-Fi Weather Station
+### ECOWITT GW1101 Wi-Fi Weather Station (x2)
 
 [ECOWITT GW1101 Wi-Fi Weather Station](https://www.amazon.ca/dp/B07R1Y72G4)
 
@@ -193,7 +193,8 @@ Total price could fluctuate, but the estimated cost is around $2,400 CAD
 * Expandable system supporting additional sensors (soil moisture, CO2, PM2.5, etc.)
 * Dual power options: solar panel and backup AA batteries for the outdoor unit
 * Easy installation with included mounting hardware
-* **Note:** Adding a second ECOWITT GW1101 unit at your LZ (Landing Zone) allows for accurate computation of atmospheric lapse rates between the two locations.
+* **Two units are used in this system:** one at launch and one at the LZ (Landing Zone). The second unit allows for accurate computation of atmospheric lapse rates between the two locations.
+* Each unit is registered separately with Weather Underground and has its own Station ID and Station Key.
 
 ### Mini Industrial 3 Port Gigabit PoE Switch
 

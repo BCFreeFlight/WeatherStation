@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BC Free Flight Weather Station — Field Handbook</title>
+<style>
+  @page {
+    size: letter;
+    margin: 20mm 18mm 18mm 18mm;
+    @bottom-center { content: counter(page); }
+  }
+  @page cover {
+    @bottom-center { content: ""; }
+  }
+  :root {
+    --ink: #16181d;
+    --muted: #5b6270;
+    --rule: #c9ced8;
+    --accent: #1a4d7a;
+    --box: #f2f4f7;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Charter", "Georgia", "Times New Roman", serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0;
+  }
+  h1, h2, h3, h4 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--accent);
+    line-height: 1.2;
+    margin: 0 0 .4em;
+  }
+  h1 { font-size: 20pt; border-bottom: 2.5pt solid var(--accent); padding-bottom: 6pt; margin-top: 0; }
+  h2 { font-size: 14pt; margin-top: 1.6em; border-bottom: .5pt solid var(--rule); padding-bottom: 3pt; }
+  h3 { font-size: 11.5pt; margin-top: 1.3em; color: var(--ink); }
+  h4 { font-size: 10.5pt; margin-top: 1em; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  p, li { orphans: 3; widows: 3; }
+  ul, ol { padding-left: 1.3em; margin: .4em 0 .8em; }
+  li { margin: .18em 0; }
+  a { color: var(--ink); text-decoration: none; }
+  code, pre {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 8.8pt;
+  }
+  code { background: var(--box); padding: .5pt 2.5pt; border-radius: 2pt; }
+  pre {
+    background: var(--box);
+    border-left: 2.5pt solid var(--accent);
+    padding: 7pt 9pt;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    page-break-inside: avoid;
+    margin: .6em 0;
+  }
+  pre code { background: none; padding: 0; }
+  .chapter { page-break-before: always; }
+  .nobreak { page-break-inside: avoid; }
+
+  /* Cover */
+  .cover {
+    page: cover;
+    height: 245mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    page-break-after: always;
+  }
+  .cover .kicker { font-family: Helvetica, Arial, sans-serif; letter-spacing: .28em; text-transform: uppercase; font-size: 10pt; color: var(--muted); }
+  .cover h1 { border: none; font-size: 34pt; margin: 14pt 0 6pt; }
+  .cover .sub { font-size: 14pt; color: var(--muted); font-style: italic; }
+  .cover .rule { width: 60mm; height: 2pt; background: var(--accent); margin: 18pt auto; }
+  .cover .meta { font-family: Helvetica, Arial, sans-serif; font-size: 9.5pt; color: var(--muted); margin-top: 30pt; line-height: 1.9; }
+
+  /* TOC */
+  .toc ol { list-style: none; padding-left: 0; counter-reset: toc; }
+  .toc > ol > li {
+    counter-increment: toc;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    padding: 5pt 0;
+    border-bottom: .5pt dotted var(--rule);
+  }
+  .toc > ol > li::before { content: counter(toc) ".  "; color: var(--accent); font-weight: bold; }
+  .toc .desc { display: block; font-family: Georgia, serif; font-size: 9pt; color: var(--muted); font-style: italic; padding-left: 1.4em; }
+
+  /* Callouts */
+  .note, .warn {
+    padding: 7pt 10pt;
+    margin: .8em 0;
+    font-size: 9.8pt;
+    page-break-inside: avoid;
+    border-left: 3pt solid var(--accent);
+    background: var(--box);
+  }
+  .warn { border-left-color: #a8341f; background: #fdf1ee; }
+  .note strong, .warn strong { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; font-size: 8.5pt; letter-spacing: .05em; }
+
+  /* Parts */
+  .part { page-break-inside: avoid; margin-bottom: 12pt; border-bottom: .5pt solid var(--rule); padding-bottom: 8pt; }
+  .part h3 { margin-bottom: 2pt; }
+  .part .link { font-family: Helvetica, Arial, sans-serif; font-size: 8pt; color: var(--muted); word-break: break-all; display: block; margin-bottom: 4pt; }
+  .part ul { margin: 0; font-size: 9.6pt; }
+
+  img.diagram { width: 100%; height: auto; border: .5pt solid var(--rule); margin-top: 8pt; }
+
+  /* Credential sheets */
+  .cred {
+    page-break-inside: avoid;
+    border: 1pt solid var(--rule);
+    padding: 9pt 11pt 11pt;
+    margin-bottom: 10pt;
+    background: #fff;
+  }
+  .cred h3 { margin: 0 0 1pt; font-size: 11pt; color: var(--accent); }
+  .cred .where { font-family: Helvetica, Arial, sans-serif; font-size: 8pt; color: var(--muted); margin: 0 0 8pt; }
+  .fld { display: flex; align-items: flex-end; gap: 6pt; margin-top: 11pt; }
+  .fld .lbl {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    width: 24mm;
+    flex: none;
+    padding-bottom: 1pt;
+  }
+  .fld .line { flex: 1; border-bottom: .75pt solid var(--ink); height: 15pt; }
+  table.grid { width: 100%; border-collapse: collapse; font-size: 9.5pt; page-break-inside: avoid; margin: .6em 0; }
+  table.grid th, table.grid td { border: .5pt solid var(--rule); padding: 5pt 6pt; text-align: left; vertical-align: top; }
+  table.grid th { background: var(--box); font-family: Helvetica, Arial, sans-serif; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .04em; }
+  table.grid td.blank { height: 22pt; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="kicker">BC Free Flight</div>
+  <h1>Weather Station<br>Field Handbook</h1>
+  <div class="sub">Remote weather &amp; camera monitoring site</div>
+  <div class="rule"></div>
+  <div class="meta">
+    Hardware · Wiring · Network · Streaming · Credentials<br>
+    bcfreeflight.com/sites/coopers<br>
+    Printed reference — keep on site
+  </div>
+</section>
+
+<!-- ============ TOC ============ -->
+<section class="toc">
+  <h1>Contents</h1>
+  <ol>
+    <li>System Overview
+      <span class="desc">What the station is, and how the pieces fit together.</span></li>
+    <li>Parts List
+      <span class="desc">Every component, with specs and source links.</span></li>
+    <li>Wiring Diagram
+      <span class="desc">Power and network interconnect.</span></li>
+    <li>Software Requirements
+      <span class="desc">Apps needed to service the site.</span></li>
+    <li>ECOWITT Weather Station Configuration
+      <span class="desc">Both stations — sensor setup and Weather Underground uploads.</span></li>
+    <li>PowerBeam Bridge Configuration
+      <span class="desc">Point-to-point link between site and access point.</span></li>
+    <li>Reolink Camera Configuration
+      <span class="desc">Camera setup, RTSP and RTMP stream URLs.</span></li>
+    <li>Live Streaming with the Stream Script
+      <span class="desc">Install, commands, scheduling, config and troubleshooting.</span></li>
+    <li>Appendix A — SubmitWeather API
+      <span class="desc">BC Free Flight weather ingest endpoint.</span></li>
+    <li>Appendix B — Adding a Station to BCFreeFlight.com
+      <span class="desc">Submission process.</span></li>
+    <li>Credentials Record
+      <span class="desc">Write-in log for every account and device password.</span></li>
+  </ol>
+  <div class="note">
+    <strong>About this handbook</strong><br>
+    Compiled from the WeatherStation repository documentation. Section 12 is intentionally blank —
+    fill it in by hand on site. Treat the completed book as a sensitive document.
+  </div>
+</section>
+
+<!-- ============ 1 OVERVIEW ============ -->
+<section class="chapter">
+  <h1>1 · System Overview</h1>
+
+  <p>This handbook documents a remote weather station with camera monitoring. The system connects
+  to a WiFi network and streams both real-time weather data and a live video feed of launch
+  activities for paragliding and other free flight.</p>
+
+  <p>The installation uses <strong>two ECOWITT weather stations</strong> — one at launch and one at
+  the landing zone — which allows the atmospheric lapse rate between the two elevations to be
+  computed.</p>
+
+  <p>Live results: <strong>https://bcfreeflight.com/sites/coopers</strong></p>
+
+  <h2>1.1 System Architecture</h2>
+  <ul>
+    <li>Solar power generation and battery storage</li>
+    <li>Two ECOWITT weather stations (launch and LZ) with WiFi connectivity</li>
+    <li>IP camera for visual monitoring</li>
+    <li>Long-range wireless bridge for data transmission</li>
+    <li><em>Stream</em> script for live streaming to YouTube</li>
+  </ul>
+
+  <h2>1.2 Signal Path</h2>
+  <table class="grid">
+    <tr><th>Stage</th><th>Component</th><th>Carries</th></tr>
+    <tr><td>Sense</td><td>ECOWITT GW1101 7-in-1 array (×2 — launch + LZ)</td><td>Temp, humidity, wind, rain, UV, solar</td></tr>
+    <tr><td>See</td><td>Reolink 12MP PoE camera</td><td>RTSP video</td></tr>
+    <tr><td>Power</td><td>200W panel → MPPT controller → 12V 100Ah LiFePO4</td><td>DC to all site gear</td></tr>
+    <tr><td>Link</td><td>PowerBeam AC Gen2 pair, bridge mode</td><td>Transparent L2 to the internet side</td></tr>
+    <tr><td>Serve</td><td>Mele Quieter4C mini PC + Stream script</td><td>RTSP → YouTube Live</td></tr>
+    <tr><td>Publish</td><td>Weather Underground / bcfreeflight.com</td><td>Weather data from both stations</td></tr>
+  </table>
+
+  <h2>1.3 Documentation Map</h2>
+  <ul>
+    <li><strong>Hardware</strong> — Parts List (§2), Wiring Diagram (§3)</li>
+    <li><strong>Software &amp; Configuration</strong> — Software Requirements (§4), Weather Stations (§5),
+        PowerBeam (§6), Reolink (§7), Streaming (§8)</li>
+    <li><strong>Stream script source</strong> — github.com/BCFreeFlight/Stream</li>
+  </ul>
+
+  <h2>1.4 Support</h2>
+  <p>For questions or assistance with this setup, refer to the individual component sections for
+  troubleshooting first. If you are still stuck, get in touch by any of the following:</p>
+
+  <table class="grid">
+    <tr><th style="width:26%">Channel</th><th>Detail</th></tr>
+    <tr><td>GitHub issue</td><td>github.com/BCFreeFlight/WeatherStation/issues</td></tr>
+    <tr><td>Streaming software</td><td>github.com/BCFreeFlight/Stream/issues</td></tr>
+    <tr><td>Email</td><td><strong>chase.florell@gmail.com</strong></td></tr>
+    <tr><td>Phone</td><td><strong>587-439-4852</strong></td></tr>
+  </table>
+
+  <div class="note"><strong>On site</strong><br>
+    A GitHub issue is preferred for anything that is not urgent — it leaves a record others can
+    find. Phone or email if the station is down and the fix cannot wait.</div>
+</section>
+
+<!-- ============ 2 PARTS ============ -->
+<section class="chapter">
+  <h1>2 · Parts List</h1>
+
+  <p>Comprehensive list of components required for building a remote weather station. There will
+  likely be some miscellaneous components needed to complete the build, but this list is a good
+  starting point.</p>
+
+  <div class="note">
+    <strong>Cost</strong><br>
+    Total price fluctuates, but estimated cost is around <strong>$2,400 CAD</strong> for the launch
+    site build. The second ECOWITT GW1101 at the LZ is an additional unit on top of that.<br>
+    Complete Amazon shopping list: amazon.ca/hz/wishlist/ls/2OBZLOWASUJUO
+  </div>
+
+  <h2>2.1 Compute &amp; Networking</h2>
+
+  <div class="part">
+    <h3>Mele Quieter4C Fanless Mini PC</h3>
+    <span class="link">amazon.ca/dp/B0CP3DC75C</span>
+    <ul>
+      <li>Intel N100 processor (12th Gen, up to 3.4GHz, 4 cores/4 threads)</li>
+      <li>8GB LPDDR4x RAM and 128GB eMMC storage with M.2 2280 expansion slot</li>
+      <li>Supports 4K triple display via dual HDMI ports and USB-C</li>
+      <li>Built-in WiFi 5 (2.4/5G) and Bluetooth 5.1 connectivity</li>
+      <li>Compact, fanless design for silent operation and energy efficiency</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Ubiquiti PowerBeam AC Gen2 &nbsp;(×2)</h3>
+    <span class="link">amazon.ca/dp/B073WV2QL2</span>
+    <ul>
+      <li>High-performance 5 GHz wireless bridge with 25 dBi gain antenna</li>
+      <li>Supports throughput speeds up to 450+ Mbps</li>
+      <li>Long-range connectivity for point-to-point links up to 25+ km</li>
+      <li>Gigabit Ethernet port for high-speed network connection</li>
+      <li>Built-in mechanical tilt with ±20° adjustment for optimal alignment</li>
+      <li>Improved surge protection for outdoor deployment</li>
+      <li>Low power consumption (8.5W maximum)</li>
+      <li>Includes 24V, 0.5A Gigabit PoE adapter for simplified power delivery</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Ubiquiti UniFi UAP-AC-M Access Point</h3>
+    <span class="link">amazon.ca/dp/B01NAAWOGO &nbsp;·&nbsp; 2.4GHz / 5GHz PoE</span>
+    <ul>
+      <li>Dual-band Wi-Fi access point with speeds up to 1167 Mbps (300 Mbps on 2.4GHz, 867 Mbps on 5GHz)</li>
+      <li>Weather-resistant design suitable for outdoor installation</li>
+      <li>Power over Ethernet (PoE) compatible for flexible deployment</li>
+      <li>Mesh networking capability for extended coverage</li>
+      <li>Supports up to 250+ concurrent client connections</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Mini Industrial 3 Port Gigabit PoE Switch</h3>
+    <span class="link">amazon.ca/dp/B0BVH7M9M2</span>
+    <ul>
+      <li>3 IEEE 802.3af/at compliant PoE ports with 10/100/1000Mbps speeds</li>
+      <li>DC12V-48V to DC48V voltage booster for flexible power input</li>
+      <li>Up to 30W per port power delivery for PoE devices</li>
+      <li>Industrial-grade hardened design for harsh environments</li>
+      <li>Din-Rail mount compatible for secure installation</li>
+      <li>Store-and-forward switching architecture</li>
+      <li>4K MAC address table for efficient network management</li>
+      <li>Supports jumbo frames up to 9K bytes for enhanced performance</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>LINOVISION Industrial Gigabit 30W PoE Splitter</h3>
+    <span class="link">amazon.ca/dp/B09BQZ5ZX3</span>
+    <ul>
+      <li>Gigabit Ethernet support with 10/100/1000Mbps data transmission</li>
+      <li>Switchable DC12V/24V output for powering non-PoE devices</li>
+      <li>Passive PoE output for wireless bridges and access points</li>
+      <li>Industrial-grade design with −40°C to 75°C operating temperature range</li>
+      <li>6KV lightning protection and Level 3 ESD protection</li>
+      <li>IEEE 802.3af/at standard compliant</li>
+      <li>Rugged metal housing for durability in harsh environments</li>
+      <li>Wall-mountable design with included bracket for flexible installation</li>
+    </ul>
+  </div>
+
+  <h2>2.2 Sensing &amp; Imaging</h2>
+
+  <div class="part">
+    <h3>ECOWITT GW1101 Wi-Fi Weather Station &nbsp;(×2)</h3>
+    <span class="link">amazon.ca/dp/B07R1Y72G4</span>
+    <ul>
+      <li>Solar-powered 7-in-1 outdoor sensor array for comprehensive weather monitoring</li>
+      <li>Measures temperature, humidity, wind speed/direction, rainfall, UV, and solar radiation</li>
+      <li>Wi-Fi connectivity for remote data access via free mobile app (iOS &amp; Android)</li>
+      <li>Built-in temperature, humidity, and atmospheric pressure sensors in base station</li>
+      <li>Data upload capability to Weather Underground and other weather services</li>
+      <li>Expandable system supporting additional sensors (soil moisture, CO2, PM2.5, etc.)</li>
+      <li>Dual power options: solar panel and backup AA batteries for the outdoor unit</li>
+      <li>Easy installation with included mounting hardware</li>
+    </ul>
+    <div class="note"><strong>Two units in this system</strong><br>
+      One at launch and one at the LZ (Landing Zone). The second unit allows for accurate
+      computation of atmospheric lapse rates between the two locations. Each unit is registered
+      separately with Weather Underground and has its own Station ID and Station Key.</div>
+  </div>
+
+  <div class="part">
+    <h3>REOLINK 12MP PoE IP Camera</h3>
+    <span class="link">amazon.ca/dp/B08P48HDVF</span>
+    <ul>
+      <li>Ultra HD 12-megapixel resolution for exceptional detail</li>
+      <li>Power over Ethernet (PoE) for simplified installation with single cable</li>
+      <li>Smart detection for people, vehicles, and pets with motion alerts</li>
+      <li>120° field of view provides broad coverage area</li>
+      <li>Color night vision with 700lm illumination for clear footage in darkness</li>
+      <li>Two-way audio communication capability</li>
+      <li>IP66 weatherproof rating for reliable outdoor operation</li>
+      <li>Supports up to 256GB local storage</li>
+    </ul>
+  </div>
+
+  <h2>2.3 Power</h2>
+
+  <div class="part">
+    <h3>200W Monocrystalline Solar Panel Set</h3>
+    <span class="link">amazon.ca/dp/B0CZXJKQGW</span>
+    <ul>
+      <li>200-watt output high-efficiency monocrystalline solar panel</li>
+      <li>20–22% conversion efficiency for maximum power generation</li>
+      <li>12BB construction for improved performance in low-light conditions</li>
+      <li>IP65 junction box for weather resistance and durability</li>
+      <li>Compatible with 12V battery systems</li>
+      <li>Ideal power source for remote weather station operation</li>
+      <li>Provides sufficient power for all electronic equipment when paired with battery storage</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>15A MPPT Solar Charge Controller</h3>
+    <span class="link">amazon.ca/GCSOAR-Controller-Adapter-Control-Charger/dp/B0CXXY2VNF</span>
+    <ul>
+      <li>15A maximum charging current for efficient solar power management</li>
+      <li>MPPT (Maximum Power Point Tracking) technology for up to 30% higher efficiency than PWM controllers</li>
+      <li>Compatible with 12V/24V systems with automatic voltage detection</li>
+      <li>Built-in WiFi connectivity for remote monitoring and control via smartphone app</li>
+      <li>Real-time data tracking and performance analytics accessible from anywhere</li>
+      <li>Built-in protection against overcharging, over-discharging, and short circuits</li>
+      <li>LED indicators for easy monitoring of system status</li>
+      <li>Suitable for various battery types including lithium and lead-acid</li>
+      <li>Compact design for installation in weather-resistant enclosures</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>LiFePO4 12V 100Ah Lithium Battery</h3>
+    <span class="link">amazon.ca/LiFePO4-Lithium-Rechargeable-Max-15000-Trolling/dp/B0F1T7ZZPB</span>
+    <ul>
+      <li>12V 100Ah deep cycle rechargeable lithium iron phosphate battery</li>
+      <li>Built-in 100A Battery Management System (BMS) for safety protection</li>
+      <li>Up to 4000+ charge cycles at 100% depth of discharge</li>
+      <li>Lightweight design compared to traditional lead-acid batteries</li>
+      <li>Consistent power output throughout discharge cycle</li>
+      <li>No maintenance required and zero toxic emissions</li>
+      <li>Ideal for solar power storage in remote weather station applications</li>
+      <li>Compatible with the EPEVER solar charge controller</li>
+    </ul>
+  </div>
+
+  <h2>2.4 Enclosure, Mounting &amp; Cabling</h2>
+
+  <div class="part">
+    <h3>Junction Box — IP67 Waterproof Plastic Enclosure</h3>
+    <span class="link">amazon.ca/dp/B08282SQPT</span>
+    <ul>
+      <li>Dimensions: 290×190×140mm (11.4"×7.5"×5.5")</li>
+      <li>IP67 waterproof rating for complete protection against dust and water immersion</li>
+      <li>Durable ABS plastic construction for outdoor durability</li>
+      <li>Hinged grey cover design for easy access to components</li>
+      <li>Includes mounting plate and wall bracket for flexible installation</li>
+      <li>Ideal for housing and protecting electronic components in harsh weather conditions</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Pole Mounting Kits for Junction Box</h3>
+    <span class="link">amazon.ca/dp/B0CQR42XHV</span>
+    <ul>
+      <li>Stainless steel bracket with hardware for outdoor installation</li>
+      <li>10-inch size for optimal mounting flexibility</li>
+      <li>Adjustable clamp to fit various pole diameters</li>
+      <li>Corrosion-resistant material for long-term outdoor durability</li>
+      <li>Compatible with electrical enclosures and junction boxes</li>
+      <li>Weather-resistant design for harsh environmental conditions</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Newpowa Universal Solar Panel Heavy Duty Double Arm Pole Mount</h3>
+    <span class="link">amazon.ca/dp/B0CC5TBM7Y</span>
+    <ul>
+      <li>Heavy-duty double arm design for secure solar panel installation</li>
+      <li>Universal mounting system compatible with most solar panel sizes</li>
+      <li>Adjustable tilt angle from 0–90 degrees for optimal sun exposure</li>
+      <li>Pole/wall mounting options for flexible installation</li>
+      <li>Durable aluminum and stainless steel components resist corrosion</li>
+      <li>Designed to withstand high wind conditions</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Cat 6 Ethernet Cable — 75 ft</h3>
+    <span class="link">amazon.ca/dp/B01F4XBTH0</span>
+    <ul>
+      <li>75-foot Cat 6 Ethernet cable for long-distance networking connections</li>
+      <li>Used at the access point end to connect the antenna to a hardwired router</li>
+      <li>Length may vary depending on specific installation location and requirements</li>
+      <li>Weather-resistant for outdoor installation; UV-resistant jacket</li>
+      <li>High-speed data transmission up to 1 Gbps</li>
+      <li>Shielded design for protection against interference in harsh environments</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Cat 6 Ethernet Cable — 10 ft (5 Pack)</h3>
+    <span class="link">amazon.ca/dp/B09ZHRWPJ7</span>
+    <ul>
+      <li>High-performance Cat 6 network cables with RJ45 connectors</li>
+      <li>Supports network speeds up to 10 Gbps with 250 MHz bandwidth</li>
+      <li>Gold-plated contacts for reliable, corrosion-free connections</li>
+      <li>Snagless connectors to prevent clip damage during installation</li>
+      <li>Pack of 5 cables provides sufficient connectivity for all components</li>
+      <li>UTP (Unshielded Twisted Pair) design for standard networking applications</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Ambuker Extension Cable</h3>
+    <span class="link">amazon.ca/Ambuker-Extension-Weatherproof-Connectors-Adapter/dp/B0D83F8MGJ</span>
+    <ul>
+      <li>Weatherproof power extension cable for outdoor applications</li>
+      <li>Male and female connectors with secure waterproof adapters</li>
+      <li>UV-resistant cable jacket for long-term outdoor durability</li>
+      <li>Ideal for connecting solar panels to charge controllers</li>
+      <li>Provides flexible installation options for optimal solar panel placement</li>
+    </ul>
+  </div>
+
+  <div class="part">
+    <h3>Wire Loom Split Tubing</h3>
+    <span class="link">amazon.ca/dp/B09C1VQ96T</span>
+    <ul>
+      <li>Flexible corrugated design for easy cable organization and protection</li>
+      <li>Pre-split construction for simple installation without disconnecting wires</li>
+      <li>Wide temperature resistance from −40°F to 257°F (−40°C to 125°C)</li>
+      <li>UV-resistant material for outdoor applications</li>
+      <li>Resistant to automotive fluids, chemicals, and abrasion</li>
+      <li>Provides protection against vibration, water, and environmental elements</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 3 WIRING ============ -->
+<section class="chapter">
+  <h1>3 · Wiring Diagram</h1>
+  <p>Power and network interconnect for all site components.</p>
+  <img class="diagram" src="WIRING_IMG" alt="Wiring diagram">
+</section>
+
+<!-- ============ 4 SOFTWARE ============ -->
+<section class="chapter">
+  <h1>4 · Software Requirements</h1>
+  <p>Software required to configure and service the station, with platform availability.</p>
+
+  <table class="grid">
+    <tr><th>Application</th><th>Purpose</th><th>Platforms</th></tr>
+    <tr><td><strong>Reolink</strong></td><td>Camera setup, live view, credentials</td><td>Android, iOS</td></tr>
+    <tr><td><strong>UISP</strong></td><td>PowerBeam discovery and management</td><td>Android, iOS</td></tr>
+    <tr><td><strong>UniFi</strong></td><td>UAP-AC-M access point management</td><td>Android, iOS</td></tr>
+    <tr><td><strong>WSView Plus</strong></td><td>ECOWITT station Wi-Fi and upload settings (both stations)</td><td>Android, iOS</td></tr>
+  </table>
+
+  <div class="note"><strong>Streaming host</strong><br>
+    On the Mele mini PC the only software required is <strong>Stream</strong>, which installs its
+    own dependencies (<code>ffmpeg</code> and its Python packages). See §8.</div>
+
+  <h2>4.1 Download Locations</h2>
+  <ul>
+    <li><strong>Reolink</strong> — Play Store: <code>com.mcu.reolink</code> · App Store id995927563</li>
+    <li><strong>UISP</strong> — Play Store: <code>com.ubnt.umobile</code> · App Store id1183022489</li>
+    <li><strong>UniFi</strong> — Play Store: <code>com.ubnt.easyunifi</code> · App Store id1057750338</li>
+    <li><strong>WSView Plus</strong> — Play Store: <code>com.ost.wsautool</code> · App Store id1581353359</li>
+    <li><strong>Stream</strong> — github.com/BCFreeFlight/Stream/releases/latest</li>
+  </ul>
+</section>
+
+<!-- ============ 5 ECOWITT ============ -->
+<section class="chapter">
+  <h1>5 · ECOWITT Weather Station Configuration</h1>
+  <p>Feeding data to Weather Underground. Follow these steps to set up the ECOWITT weather stations
+  and send live weather data.</p>
+
+  <h2>5.1 Two Stations in This System</h2>
+  <p>This installation uses <strong>two ECOWITT GW1101 stations</strong>:</p>
+  <table class="grid">
+    <tr><th style="width:16%">Station</th><th style="width:38%">Location</th><th>Purpose</th></tr>
+    <tr><td><strong>Launch</strong></td><td>Launch site, alongside the camera and network gear</td>
+        <td>Primary launch conditions</td></tr>
+    <tr><td><strong>LZ</strong></td><td>Landing zone</td>
+        <td>Landing conditions, and the second data point used to compute the atmospheric lapse
+            rate between the two elevations</td></tr>
+  </table>
+  <p>Each station is a fully independent unit. Repeat every step below <strong>once per
+  station</strong> — each one gets its own Weather Underground device registration, its own Station
+  ID and Station Key, and its own entry in the WSView Plus app.</p>
+
+  <div class="warn"><strong>Do not share a Station ID</strong><br>
+    Using one Station ID for both units interleaves readings from two different elevations into a
+    single feed, which corrupts both the launch data and the lapse rate. Record the elevation of
+    each station accurately when you register it — the lapse rate calculation depends on it.</div>
+
+  <h2>5.2 Register Each Station on Weather Underground</h2>
+  <ol>
+    <li>Visit Weather Underground's registration page: <code>wunderground.com/member/devices</code></li>
+    <li>Log in or create an account if you do not have one.</li>
+    <li>Click <strong>Add a New Device</strong>.</li>
+    <li>Complete the required information, including location, elevation, and station details.</li>
+    <li>After registration, note the <strong>Station ID</strong> and <strong>Station Key</strong>/Password.</li>
+    <li>Repeat for the second station, using its own name, location, and elevation.</li>
+  </ol>
+  <div class="note"><strong>Record it</strong><br>
+    Write both sets of Station ID and Station Key into §11 — Credentials Record. There is a
+    separate block for the launch station and the LZ station.</div>
+
+  <h2>5.3 Connect Each ECOWITT Console to Wi-Fi</h2>
+  <ol>
+    <li>Plug in the ECOWITT weather station and turn it on.</li>
+    <li>On the console, navigate to the network settings to enable Wi-Fi.</li>
+    <li>Connect your phone to the same Wi-Fi network you want the station to use.</li>
+  </ol>
+
+  <h2>5.4 Use the WSView Plus App</h2>
+  <ol>
+    <li>Download and install the WSView Plus app (Android or iOS).</li>
+    <li>Open the app and search for the weather station device.</li>
+    <li>Follow the app's instructions to connect the station to your Wi-Fi.</li>
+  </ol>
+
+  <h2>5.5 Configure Weather Underground Uploads</h2>
+  <ol>
+    <li>Within the WSView Plus app, select the weather station device.</li>
+    <li>Go to <strong>Device Settings</strong> → <strong>Weather Services</strong> or <strong>Upload Settings</strong>.</li>
+    <li>Select <strong>Weather Underground</strong>.</li>
+    <li>Enter the <strong>Station ID</strong> and <strong>Station Key</strong> belonging to <em>that</em> station (from §5.2).</li>
+    <li>Save the settings.</li>
+    <li>Repeat for the second station, taking care to enter the matching credentials.</li>
+  </ol>
+
+  <h2>5.6 Confirm Data Upload</h2>
+  <ul>
+    <li>Return to Weather Underground's Device Management page.</li>
+    <li>Both stations should show as "Online" after a few minutes. Data updates typically start within 10–15 minutes.</li>
+    <li>If data does not appear, double-check the Station ID, Key, and network connection.</li>
+    <li>If one station reports the other's conditions, the Station IDs have been swapped between the
+        two units — correct them in WSView Plus.</li>
+  </ul>
+
+  <div class="note"><strong>Troubleshooting</strong><br>
+    Consult the ECOWITT user manual or the WSView Plus app help section.</div>
+</section>
+
+<!-- ============ 6 POWERBEAM ============ -->
+<section class="chapter">
+  <h1>6 · PowerBeam Bridge Configuration</h1>
+  <p>Configure Ubiquiti PowerBeam antennas to communicate in bridge mode, enabling transparent
+  network traffic between two or more locations.</p>
+
+  <h2>6.1 Prerequisites</h2>
+  <ul>
+    <li>Two PowerBeam (or compatible) antennas</li>
+    <li>Devices powered up and connected via Ethernet for initial configuration</li>
+    <li>Access to the web interface for each unit</li>
+    <li>Default login credentials (usually <code>ubnt</code>/<code>ubnt</code>, unless changed)</li>
+  </ul>
+
+  <h2>6.2 Step 1 — Initial Setup</h2>
+  <ol>
+    <li>Connect your computer to the PowerBeam's PoE injector LAN port using an Ethernet cable.</li>
+    <li>Set your computer's network IP to a static address in the <strong>192.168.1.x</strong> range (e.g. 192.168.1.10).</li>
+    <li>Open a web browser and go to <code>http://192.168.1.20</code> (the default PowerBeam IP).</li>
+  </ol>
+
+  <h2>6.3 Step 2 — Login and Update Firmware</h2>
+  <ol>
+    <li>Log in (default username and password are usually <code>ubnt</code>).</li>
+    <li>If needed, update to the latest firmware from Ubiquiti's official site: <code>ui.com/download</code></li>
+  </ol>
+
+  <h2>6.4 Step 3 — Configure the First PowerBeam (Access Point)</h2>
+  <ol>
+    <li>On the main menu, go to <strong>Wireless</strong>:
+      <ul>
+        <li>Set <em>Wireless Mode</em> to <strong>Access Point</strong>.</li>
+        <li>Enter an <em>SSID</em> (network name) that both antennas will use.</li>
+        <li>Choose your <em>Channel Width</em> and <em>Frequency</em> (try automatic, or select manually for best performance).</li>
+        <li>Set/encrypt with a strong WPA2 password.</li>
+      </ul>
+    </li>
+    <li>Go to <strong>Network</strong>:
+      <ul>
+        <li>Set <em>Network Mode</em> to <strong>Bridge</strong>.</li>
+        <li>Assign a static IP if desired (to avoid IP conflicts later).</li>
+      </ul>
+    </li>
+    <li>Apply changes and reboot if prompted.</li>
+  </ol>
+
+  <h2>6.5 Step 4 — Configure the Second PowerBeam (Station/Client)</h2>
+  <ol>
+    <li>Connect to the second antenna and log in as above.</li>
+    <li>Go to <strong>Wireless</strong>:
+      <ul>
+        <li>Set <em>Wireless Mode</em> to <strong>Station</strong>.</li>
+        <li>Enter the <em>SSID</em> to match the Access Point.</li>
+        <li>Set Channel Width and Frequency to match the AP.</li>
+        <li>Enter the same WPA2 password.</li>
+      </ul>
+    </li>
+    <li>Go to <strong>Network</strong>:
+      <ul>
+        <li>Set <em>Network Mode</em> to <strong>Bridge</strong>.</li>
+        <li>Assign a different static IP, or use DHCP if your network supports it.</li>
+      </ul>
+    </li>
+    <li>Apply changes and reboot if prompted.</li>
+  </ol>
+
+  <h2>6.6 Step 5 — Align Antennas and Test Connection</h2>
+  <ol>
+    <li>Physically position and align the antennas with each other for optimal signal (use the alignment tools in the web interface).</li>
+    <li>Connect your main network to the AP side and the remote device/network to the Station side.</li>
+    <li>Test connectivity — devices at each end should communicate seamlessly as if on the same LAN.</li>
+  </ol>
+
+  <h2>6.7 Tips</h2>
+  <ul>
+    <li>Use the <strong>UISP</strong> app (Android/iOS) for discovery and management.</li>
+    <li>Use surge protectors to safeguard hardware outdoors.</li>
+    <li>Adjust frequencies to minimize interference, especially where other wireless networks are present.</li>
+  </ul>
+  <p>For advanced settings and troubleshooting, consult your model's user manual or visit the
+  Ubiquiti Community Forums at <code>community.ui.com</code>.</p>
+</section>
+
+<!-- ============ 7 REOLINK ============ -->
+<section class="chapter">
+  <h1>7 · Reolink Camera Configuration</h1>
+  <p>Setting up the Reolink IP PoE camera and obtaining the RTSP and RTMP stream URLs. The RTSP URL
+  is what you supply to the Stream script during installation — see §8.</p>
+
+  <h2>7.1 Camera Hardware &amp; Initial Setup</h2>
+  <ol>
+    <li><strong>Mount the Camera</strong> — install at the desired location using the provided hardware.</li>
+    <li><strong>Connect Power &amp; Network</strong> — use a PoE adapter or switch to provide both power and network connectivity over a single Ethernet cable.</li>
+    <li><strong>Find the Camera on Your Network</strong> — use the Reolink app (Windows/Mac/mobile) or your router's client list to note the camera's IP address.</li>
+  </ol>
+
+  <h2>7.2 Accessing the Camera Web Interface</h2>
+  <ol>
+    <li>Open a web browser.</li>
+    <li>Enter <code>http://&lt;IP address&gt;</code> (replace with the camera's assigned address).</li>
+    <li>Log in using your camera credentials (set up initially via the Reolink app or web interface).</li>
+  </ol>
+
+  <h2>7.3 RTSP Stream</h2>
+  <p>RTSP is a common protocol for streaming high-quality video with minimal latency. This is the
+  URL the Stream script uses as its <code>stream.rtspUrl</code> config value.</p>
+  <h4>URL format</h4>
+<pre><code>rtsp://&lt;username&gt;:&lt;password&gt;@&lt;IP address&gt;/Preview_&lt;channel number&gt;_&lt;stream type&gt;</code></pre>
+  <ul>
+    <li><code>&lt;username&gt;</code> — camera login username</li>
+    <li><code>&lt;password&gt;</code> — camera login password</li>
+    <li><code>&lt;IP address&gt;</code> — camera's local IP address (e.g. 192.168.1.101)</li>
+    <li><code>&lt;channel number&gt;</code> — typically <code>0</code> for single-channel cameras</li>
+    <li><code>&lt;stream type&gt;</code> — <code>main</code> for high quality, <code>sub</code> for lower quality/bitrate</li>
+  </ul>
+  <h4>Example</h4>
+  <p>Username <code>admin</code>, password <code>MySecret123</code>, IP <code>192.168.1.101</code>, main stream:</p>
+<pre><code>rtsp://admin:MySecret123@192.168.1.101/Preview_0_main</code></pre>
+
+  <h2>7.4 RTMP Stream</h2>
+  <p>RTMP is typically used for pushing streams to servers (YouTube, Twitch), but Reolink cameras
+  also expose RTMP URLs that can be pulled by a client. RTSP is preferred for this installation;
+  RTMP is documented here as a fallback.</p>
+  <h4>URL format</h4>
+<pre><code>rtmp://&lt;IP address&gt;/bcs/channel&lt;channel id&gt;_main.bcs?channel=&lt;channel id&gt;&amp;stream=0&amp;user=&lt;username&gt;&amp;password=&lt;password&gt;</code></pre>
+  <ul>
+    <li><code>&lt;IP address&gt;</code> — camera's IP address</li>
+    <li><code>&lt;channel id&gt;</code> — usually <code>0</code> unless you have multiple channels</li>
+    <li><code>&lt;username&gt;</code> / <code>&lt;password&gt;</code> — camera login credentials</li>
+  </ul>
+  <h4>Example</h4>
+<pre><code>rtmp://192.168.1.101/bcs/channel0_main.bcs?channel=0&amp;stream=0&amp;user=admin&amp;password=MySecret123</code></pre>
+
+  <h2>7.5 Troubleshooting</h2>
+  <ul>
+    <li><strong>Firewall issues</strong> — ensure port 554 (RTSP) and port 1935 (RTMP) are allowed through the network firewall.</li>
+    <li><strong>Multiple cameras</strong> — repeat the above for each camera, adjusting the channel number.</li>
+    <li><strong>Network stability</strong> — a wired Ethernet connection is recommended for best reliability.</li>
+  </ul>
+  <p>Additional resources: <code>support.reolink.com</code></p>
+
+  <div class="warn"><strong>Reminder</strong><br>
+    The RTSP/RTMP URLs embed the camera username and password in plain text. Do not post them
+    publicly. Record the camera credentials in §11 rather than writing full URLs elsewhere.</div>
+</section>
+
+<!-- ============ 8 STREAMING ============ -->
+<section class="chapter">
+  <h1>8 · Live Streaming with the Stream Script</h1>
+
+  <p>Live streaming to YouTube is handled by <strong>BC Free Flight Stream</strong> — a
+  self-contained Python script written for this project. It proxies the RTSP camera feed to YouTube
+  Live via <code>ffmpeg</code>, manages the YouTube broadcast lifecycle, handles OAuth 2.0
+  authentication, retries automatically on failure, and registers its own cron jobs for unattended
+  operation.</p>
+
+  <p>Source and releases: <code>github.com/BCFreeFlight/Stream</code></p>
+
+  <div class="note"><strong>Stable broadcast URL</strong><br>
+    Once created during <code>--install</code>, the same YouTube URL is reused every time the stream
+    starts and stops. That is why it is safe to embed on the website — it does not need updating
+    each day.</div>
+
+  <h2>8.1 Requirements</h2>
+  <ul>
+    <li>Linux Mint / Ubuntu-based system (the Mele mini PC at the site)</li>
+    <li>Python 3.8 or later</li>
+    <li><code>ffmpeg</code> — installed automatically by <code>--install</code></li>
+    <li>A Google Cloud project with the <strong>YouTube Data API v3</strong> enabled</li>
+    <li>An RTSP-capable camera reachable from the host — see §7</li>
+  </ul>
+  <p>All Python dependencies are self-installed by the script on first run.</p>
+
+  <h2>8.2 Google Cloud Setup</h2>
+  <p>Do this before running the installer.</p>
+  <ol>
+    <li>Go to the Google Cloud Console: <code>console.cloud.google.com</code></li>
+    <li>Create a new project, or select an existing one.</li>
+    <li>Navigate to <strong>APIs &amp; Services → Library</strong>.</li>
+    <li>Search for <strong>YouTube Data API v3</strong> and click <strong>Enable</strong>.</li>
+    <li>Navigate to <strong>APIs &amp; Services → Credentials</strong>.</li>
+    <li>Click <strong>Create Credentials → OAuth client ID</strong>.</li>
+    <li>Select <strong>Desktop app</strong> as the application type.</li>
+    <li>Copy the <strong>Client ID</strong> and <strong>Client Secret</strong> — both are needed during
+        <code>--install</code>. Record them in §11.</li>
+  </ol>
+  <div class="note"><strong>No stream key to copy</strong><br>
+    You do <em>not</em> need to fetch a stream key from YouTube Studio. The installer creates the
+    broadcast and live-stream resources through the API and writes the stream URL and key into
+    <code>config.toml</code> automatically.</div>
+
+  <h2>8.3 Install</h2>
+  <p>On the streaming machine, <code>cd</code> to the directory where the script should live and run:</p>
+<pre><code>curl -fLO https://github.com/BCFreeFlight/Stream/releases/latest/download/stream.py \
+  &amp;&amp; python3 stream.py --install</code></pre>
+
+  <p>The interactive wizard will:</p>
+  <ul>
+    <li>Prompt for Google OAuth credentials, the RTSP URL, broadcast title/privacy/category, and the cron schedule</li>
+    <li>Install <code>ffmpeg</code> and the required Python packages</li>
+    <li>Open a browser for Google OAuth 2.0 authorization</li>
+    <li>Create the YouTube broadcast and live-stream resources</li>
+    <li>Write <code>config.toml</code> and <code>.env</code> beside the script</li>
+    <li>Detect the terminal emulator and register cron jobs</li>
+    <li>Print the stable YouTube URL for the stream</li>
+  </ul>
+  <p>Re-running <code>--install</code> is idempotent. It loads existing configuration and only
+  prompts for values that are missing, preserving credentials, YouTube resources, and cron entries.</p>
+
+  <h2>8.4 Commands</h2>
+  <table class="grid">
+    <tr><th style="width:44%">Command</th><th>Purpose</th></tr>
+    <tr><td><code>stream.py --start</code></td><td>Create a fresh broadcast and start streaming</td></tr>
+    <tr><td><code>stream.py --stop</code></td><td>Stop <code>ffmpeg</code> gracefully and archive the broadcast as a VOD</td></tr>
+    <tr><td><code>stream.py --recover</code></td><td>Resume streaming if the current time is inside the daily window (used at boot)</td></tr>
+    <tr><td><code>stream.py --install</code></td><td>Run or re-run the setup wizard</td></tr>
+    <tr><td><code>stream.py --update</code></td><td>Back up and upgrade to the latest release</td></tr>
+    <tr><td><code>stream.py --roll-back [version]</code></td><td>Restore a previous version from <code>backup/</code></td></tr>
+    <tr><td><code>stream.py --reinstall</code></td><td>Clean slate: uninstall, delete config, re-install</td></tr>
+    <tr><td><code>stream.py --uninstall</code></td><td>Stop the stream, archive the broadcast, remove cron entries</td></tr>
+    <tr><td><code>stream.py --set-property &lt;key&gt; &lt;value&gt;</code></td><td>Set a <code>config.toml</code> value from the command line</td></tr>
+    <tr><td><code>stream.py --start --log-level debug</code></td><td>Override log verbosity for a single run</td></tr>
+  </table>
+  <p>All commands are run as <code>python3 stream.py …</code> from the directory containing the script.</p>
+
+  <h2>8.5 Scheduling</h2>
+  <p><code>--install</code> registers three cron entries by default, scheduled for the April–October
+  flying season, plus an optional fourth:</p>
+  <table class="grid">
+    <tr><th style="width:18%">Job</th><th style="width:32%">Default schedule</th><th>Behaviour</th></tr>
+    <tr><td>Start</td><td><code>30 6 1-31 4-10 *</code> (6:30 AM)</td><td>Opens a terminal window and starts streaming</td></tr>
+    <tr><td>Stop</td><td><code>25 18 1-31 4-10 *</code> (6:25 PM)</td><td>Runs headless to stop the stream</td></tr>
+    <tr><td>Recover</td><td><code>@reboot</code></td><td>Runs <code>--recover</code>; resumes the stream if the machine reboots inside the window</td></tr>
+    <tr><td>Update <em>(optional)</em></td><td><code>0 0 * * *</code> (midnight)</td><td>Runs <code>--update</code>; only registered when <code>cron.autoUpdate = true</code></td></tr>
+  </table>
+  <p>Auto-update is disabled by default so the site is never updated unattended without consent.
+  The start job opens a single terminal window titled "BC Free Flight Stream", which closes when the
+  stop job fires — this prevents terminal windows accumulating over the season.</p>
+
+  <h2>8.6 Configuration</h2>
+  <p>Non-secret configuration lives in <code>config.toml</code> beside the script. Frequently
+  adjusted keys:</p>
+  <table class="grid">
+    <tr><th style="width:30%">Key</th><th style="width:16%">Default</th><th>Description</th></tr>
+    <tr><td><code>stream.rtspUrl</code></td><td><em>prompted</em></td><td>Full RTSP URL of the camera</td></tr>
+    <tr><td><code>stream.mute</code></td><td><code>false</code></td><td>If <code>true</code>, audio is stripped</td></tr>
+    <tr><td><code>youtube.broadcastTitle</code></td><td><code>My Location: {date}</code></td><td>Title template; <code>{date}</code> resolves to the current ISO date</td></tr>
+    <tr><td><code>youtube.privacy</code></td><td><code>public</code></td><td><code>public</code>, <code>unlisted</code>, or <code>private</code></td></tr>
+    <tr><td><code>youtube.embeddable</code></td><td><code>true</code></td><td>Allow the broadcast to be embedded on external sites</td></tr>
+    <tr><td><code>youtube.enableDvr</code></td><td><code>false</code></td><td>Allow viewers to rewind the live stream</td></tr>
+    <tr><td><code>youtube.archivePrivacy</code></td><td><code>private</code></td><td>Privacy applied to the archived video after <code>--stop</code></td></tr>
+    <tr><td><code>logLevel</code></td><td><code>info</code></td><td><code>debug</code>, <code>info</code>, <code>warning</code>, or <code>error</code></td></tr>
+    <tr><td><code>logRetentionDays</code></td><td><code>15</code></td><td>Days of logs to keep</td></tr>
+    <tr><td><code>cron.start</code> / <code>cron.stop</code></td><td>see §8.5</td><td>Daily start and stop schedules</td></tr>
+    <tr><td><code>cron.autoUpdate</code></td><td><code>false</code></td><td>Register the automatic update job</td></tr>
+  </table>
+
+  <div class="warn"><strong>Secrets</strong><br>
+    Secrets live in <code>.env</code> beside the script: <code>GOOGLE_CLIENT_SECRET</code>,
+    <code>GOOGLE_REFRESH_TOKEN</code>, <code>GOOGLE_ACCESS_TOKEN</code>. Never share or commit this
+    file. The RTSP URL in <code>config.toml</code> also contains the camera password in plain text.</div>
+
+  <h2>8.7 Logs</h2>
+  <ul>
+    <li><strong>Location</strong> — <code>logs/</code> beside the script, one file per day</li>
+    <li><strong>Format</strong> — <code>[ISO-8601-timestamp] [LEVEL] message</code></li>
+    <li>Old files are pruned on each <code>--start</code> according to <code>logRetentionDays</code></li>
+    <li>At the default <code>info</code> level <code>ffmpeg</code> progress noise is hidden; use
+        <code>--log-level debug</code> to see it</li>
+  </ul>
+
+  <h2>8.8 Troubleshooting</h2>
+  <p>Run any command with <code>--log-level debug</code> for full detail.</p>
+
+  <h4>Stream never goes live / status stuck inactive</h4>
+  <ul>
+    <li>Verify the camera URL and that the host can reach it; check the <code>[ffmpeg]</code> debug lines.</li>
+    <li>If the camera password changed, re-run <code>--install</code> — special characters are encoded automatically.</li>
+    <li>A stream key mismatch is repaired by re-running <code>--install</code>.</li>
+  </ul>
+
+  <h4>"Playback on other websites has been disabled" (embed blocked)</h4>
+  <ul>
+    <li>Ensure <code>youtube.embeddable = true</code> and run <code>--start</code> again.</li>
+  </ul>
+
+  <h4>OAuth fails or authorizes the wrong account</h4>
+  <ul>
+    <li>The flow always shows the account chooser — pick the correct account.</li>
+    <li>To switch accounts permanently, use <code>--reinstall</code>.</li>
+  </ul>
+
+  <h4>Stream didn't resume after a reboot</h4>
+  <ul>
+    <li><code>--recover</code> only acts inside the <code>cron.start</code>/<code>cron.stop</code> window.</li>
+    <li>Confirm the entry exists: <code>crontab -l | grep bcfreeflight_stream</code></li>
+    <li>Re-run <code>--install</code> to repair cron entries.</li>
+  </ul>
+
+  <h4>No terminal window opens</h4>
+  <ul>
+    <li>The detected terminal may be wrong: <code>python3 stream.py --set-property terminal xterm</code></li>
+  </ul>
+
+  <h4>pip install fails (externally-managed environment)</h4>
+  <ul>
+    <li>PEP 668 systems fall back to <code>--user --break-system-packages</code> automatically. If it
+        still fails, pre-install the dependencies or run inside a virtualenv.</li>
+  </ul>
+
+  <p>For anything not covered here, see the Stream troubleshooting guide at
+  <code>github.com/BCFreeFlight/Stream/blob/main/docs/troubleshooting.md</code></p>
+
+  <h2>8.9 Credentials Involved</h2>
+  <ul>
+    <li>Google account owning the YouTube channel</li>
+    <li>Google Cloud OAuth client ID and client secret</li>
+    <li>Reolink camera username/password (embedded in the RTSP URL)</li>
+  </ul>
+  <p>Record all of these in §11 — Credentials Record.</p>
+</section>
+
+<!-- ============ 9 APPENDIX A API ============ -->
+<section class="chapter">
+  <h1>9 · Appendix A — SubmitWeather API</h1>
+
+  <p>BC Free Flight runs a Lambda-backed ingest endpoint for weather data.</p>
+
+  <h4>Endpoint</h4>
+<pre><code>https://api.bcfreeflight.com/SubmitWeather?uploadKey={KEY}</code></pre>
+  <p>where <code>{KEY}</code> is the <strong>deviceKey</strong> associated with your device.</p>
+
+  <div class="note"><strong>Format</strong><br>
+    Currently only Weather Underground querystring-formatted data is supported.</div>
+
+  <p>Record the device upload key in §11 — Credentials Record.</p>
+</section>
+
+<!-- ============ 10 APPENDIX B ============ -->
+<section class="chapter">
+  <h1>10 · Appendix B — Adding a Station to BCFreeFlight.com</h1>
+
+  <p>To get a weather station added to bcfreeflight.com:</p>
+  <ol>
+    <li>Set up the weather station to send data to Weather Underground (§5).</li>
+    <li>Submit an issue to <code>github.com/BCFreeFlight/bcfreeflight.github.io/issues/new</code>
+        with the following information:
+      <ul>
+        <li>Weather Underground Station ID</li>
+        <li>Weather Underground Station Key</li>
+        <li>Station name and location</li>
+        <li>Site elevation in metres</li>
+        <li>Brief description of the flying site</li>
+        <li>Contact information (optional)</li>
+      </ul>
+    </li>
+  </ol>
+  <p>The BC Free Flight team will handle the integration and add the weather station data to the
+  site once the submission is approved.</p>
+</section>
+
+<!-- ============ 11 CREDENTIALS ============ -->
+<section class="chapter">
+  <h1>11 · Credentials Record</h1>
+
+  <div class="warn">
+    <strong>Handle as confidential</strong><br>
+    Once filled in, this section contains live credentials for the site. Store the printed book
+    in a controlled location, do not photograph these pages, and shred superseded copies.
+    Cross out and re-write entries when a password is rotated — note the date.
+  </div>
+
+  <p>Fill in by hand. Leave unused entries blank.</p>
+
+  <h2>11.1 Network Infrastructure</h2>
+
+  <div class="cred">
+    <h3>Site Wi-Fi / SSID</h3>
+    <p class="where">Network the ECOWITT console and site gear join</p>
+    <div class="fld"><span class="lbl">SSID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Router / Gateway Admin (AP end)</h3>
+    <p class="where">Hardwired router at the access point end of the bridge</p>
+    <div class="fld"><span class="lbl">IP address</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>PowerBeam AC Gen2 — Access Point side</h3>
+    <p class="where">Web UI, default 192.168.1.20 · default login ubnt/ubnt</p>
+    <div class="fld"><span class="lbl">IP address</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>PowerBeam AC Gen2 — Station side</h3>
+    <p class="where">Web UI, remote/site end of the bridge</p>
+    <div class="fld"><span class="lbl">IP address</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>PowerBeam Bridge Link (wireless)</h3>
+    <p class="where">SSID and WPA2 key shared by both antennas</p>
+    <div class="fld"><span class="lbl">SSID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">WPA2 key</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>UniFi UAP-AC-M Access Point</h3>
+    <p class="where">UniFi app / controller</p>
+    <div class="fld"><span class="lbl">Controller</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Ubiquiti Account (UISP / UI.com)</h3>
+    <p class="where">Cloud account for device management and firmware</p>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <h2>11.2 Site Devices</h2>
+
+  <div class="cred">
+    <h3>Reolink Camera — Device Login</h3>
+    <p class="where">Camera web UI at http://&lt;IP&gt; · also used in the RTSP/RTMP URL</p>
+    <div class="fld"><span class="lbl">IP address</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Reolink Cloud Account</h3>
+    <p class="where">Reolink mobile app sign-in</p>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Mele Quieter4C Mini PC — OS Login</h3>
+    <p class="where">Streaming host; local account and any remote-access method</p>
+    <div class="fld"><span class="lbl">Hostname/IP</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>MPPT Solar Charge Controller — Wi-Fi App</h3>
+    <p class="where">Remote monitoring app for the 15A MPPT controller</p>
+    <div class="fld"><span class="lbl">Device / AP</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <h2>11.3 Weather Services</h2>
+
+  <div class="cred">
+    <h3>ECOWITT / WSView Plus Account</h3>
+    <p class="where">Account used to configure both GW1101 consoles</p>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>ECOWITT GW1101 — Launch Console</h3>
+    <p class="where">Device Wi-Fi/network details for the launch-site station</p>
+    <div class="fld"><span class="lbl">Wi-Fi SSID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">IP address</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Elevation (m)</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>ECOWITT GW1101 — LZ Console</h3>
+    <p class="where">Device Wi-Fi/network details for the landing-zone station</p>
+    <div class="fld"><span class="lbl">Wi-Fi SSID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">IP address</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Elevation (m)</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Weather Underground — Account</h3>
+    <p class="where">wunderground.com/member/devices</p>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Weather Underground — Station (Launch)</h3>
+    <p class="where">Station credentials entered into WSView Plus</p>
+    <div class="fld"><span class="lbl">Station ID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Station Key</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Weather Underground — Station (LZ)</h3>
+    <p class="where">Second GW1101 at the landing zone, for lapse-rate computation</p>
+    <div class="fld"><span class="lbl">Station ID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Station Key</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>BC Free Flight SubmitWeather API</h3>
+    <p class="where">api.bcfreeflight.com/SubmitWeather?uploadKey={KEY}</p>
+    <div class="fld"><span class="lbl">Device name</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Upload key</span><span class="line"></span></div>
+  </div>
+
+  <h2>11.4 Streaming</h2>
+
+  <div class="cred">
+    <h3>Google Account (YouTube channel owner)</h3>
+    <p class="where">Owns the live broadcast; also used for OAuth consent</p>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">2FA / recovery</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>Google Cloud OAuth Client (Stream script)</h3>
+    <p class="where">Desktop-app credentials from console.cloud.google.com, entered at <code>--install</code></p>
+    <div class="fld"><span class="lbl">Project name</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Client ID</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Client secret</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>YouTube Broadcast</h3>
+    <p class="where">Stable URL created by <code>--install</code>; stream key is written to config.toml automatically</p>
+    <div class="fld"><span class="lbl">Channel URL</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Broadcast ID</span><span class="line"></span></div>
+  </div>
+
+  <h2>11.5 Project Accounts</h2>
+
+  <div class="cred">
+    <h3>GitHub (BCFreeFlight org)</h3>
+    <p class="where">Issue submission and Stream script releases</p>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password / PAT</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>AWS Console (SubmitWeather Lambda)</h3>
+    <p class="where">Only if you administer the ingest endpoint</p>
+    <div class="fld"><span class="lbl">Account / alias</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <h2>11.6 Additional Entries</h2>
+
+  <div class="cred">
+    <h3>&nbsp;</h3>
+    <p class="where">Component / service name:</p>
+    <div class="fld"><span class="lbl">Name</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>&nbsp;</h3>
+    <p class="where">Component / service name:</p>
+    <div class="fld"><span class="lbl">Name</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>&nbsp;</h3>
+    <p class="where">Component / service name:</p>
+    <div class="fld"><span class="lbl">Name</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <div class="cred">
+    <h3>&nbsp;</h3>
+    <p class="where">Component / service name:</p>
+    <div class="fld"><span class="lbl">Name</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Username</span><span class="line"></span></div>
+    <div class="fld"><span class="lbl">Password</span><span class="line"></span></div>
+  </div>
+
+  <h2>11.7 Password Change Log</h2>
+  <table class="grid">
+    <tr><th style="width:22%">Date</th><th style="width:44%">Component</th><th>Changed by</th></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+    <tr><td class="blank"></td><td></td><td></td></tr>
+  </table>
+</section>
+
+</body>
+</html>
